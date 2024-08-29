@@ -10,7 +10,8 @@ This program is a simple contract written in Solidity and deployed using hardhat
 - `mint()` - Takes the address of the user and the amount to mint as parameters. It is an only owner function i.e. only the deployer can call this function.
 - `transferto()` - Takes the address of the user and the amount of ERC20 tokens to transfer as parameters.
 - `burn()` - Takes the amount of the tokens to burn as the parameter. The amount of tokens that burn are from the balance of the caller of the function(`msg.sender`).
-- `redeemItems()` - Takes the ID of the item to redeem. Checks if the user already has the Item and if the user has enough ERC20 tokens to redeem the item in exchange.
+- `redeemItems()` - Takes the Name of the item to redeem. Checks if the user already has the Item and if the user has enough DegenTokens to redeem the item in exchange.
+- `getBalance()` - Custom override of the ERC20 standard function `balanceOf()`.
 
 ## Getting Started
 
