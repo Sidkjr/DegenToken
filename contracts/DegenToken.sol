@@ -6,14 +6,14 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract DegenToken is ERC20, Ownable {
 
-    mapping(address => mapping(uint => bool)) public usersInventory;
-    mapping(uint256 => uint256) public itemPrice;
+    mapping(address => mapping(string => bool)) public usersInventory;
+    mapping(string => uint256) public itemPrice;
     address ownerofContract;
 
     constructor() ERC20("Degen", "DGN") {
-        for(uint i = 1; i <= 10; i++) {
-            itemPrice[i] = i*10;
-        }
+        itemPrice['MightySword'] = 10;
+        itemPrice['MagePotion'] = 20;
+        itemPrice['InvisibilityCloak'] = 30;
         ownerofContract = msg.sender;
     }
 
@@ -33,13 +33,13 @@ contract DegenToken is ERC20, Ownable {
             _burn(msg.sender, amount);
         }
 
-        function reedemItems(uint256 _itemID) public {
+        function reedemItems(string calldata _itemName ) public {
 
-            require(usersInventory[msg.sender][_itemID] == false, "You already have that Item in your inventory!");
-            require(balanceOf(msg.sender) >= itemPrice[_itemID], "You don't have enough tokens to reedem this Item!");
+            require(usersInventory[msg.sender][_itemName] == false, "You already have that Item in your inventory!");
+            require(balanceOf(msg.sender) >= itemPrice[_itemName], "You don't have enough tokens to reedem this Item!");
 
-            usersInventory[msg.sender][_itemID] = true;
-            transfer(ownerofContract, itemPrice[_itemID]);
+            usersInventory[msg.sender][_itemName] = true;
+            transfer(ownerofContract, itemPrice[_itemName]);
         }
 
         function getBalance() view public returns (uint){
